@@ -1,0 +1,6 @@
+{
+  "name": "Lumina Photo",
+  "description": "A high-fidelity professional offline Lightroom-like photo editor featuring HSL, Light, Color and Detail adjustments, presets, and high performance image processing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
