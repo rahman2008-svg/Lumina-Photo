@@ -32,7 +32,6 @@ buildTypes {
     }
 
     debug {
-        // Default debug signing (DO NOT CUSTOMIZE)
         isMinifyEnabled = false
     }
 }
@@ -42,8 +41,8 @@ compileOptions {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-kotlinOptions {
-    jvmTarget = "11"
+kotlin {
+    jvmToolchain(11)
 }
 
 buildFeatures {
