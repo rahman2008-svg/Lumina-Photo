@@ -1,4 +1,3 @@
-
 plugins {
 alias(libs.plugins.android.application)
 alias(libs.plugins.kotlin.compose)
@@ -9,7 +8,6 @@ alias(libs.plugins.secrets)
 
 android {
 namespace = "com.aistudio.luminaphoto.xptvws"
-
 compileSdk = 36
 
 defaultConfig {
@@ -34,13 +32,18 @@ buildTypes {
     }
 
     debug {
-        // Use Android default debug signing
+        // Default debug signing (DO NOT CUSTOMIZE)
+        isMinifyEnabled = false
     }
 }
 
 compileOptions {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
+}
+
+kotlinOptions {
+    jvmTarget = "11"
 }
 
 buildFeatures {
@@ -66,6 +69,7 @@ implementation(platform(libs.androidx.compose.bom))
 implementation(platform(libs.firebase.bom))
 
 implementation(libs.androidx.activity.compose)
+
 implementation(libs.androidx.compose.material.icons.core)
 implementation(libs.androidx.compose.material.icons.extended)
 implementation(libs.androidx.compose.material3)
