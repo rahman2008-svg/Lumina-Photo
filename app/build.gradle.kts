@@ -1,128 +1,118 @@
 plugins {
-alias(libs.plugins.android.application)
-alias(libs.plugins.kotlin.compose)
-alias(libs.plugins.google.devtools.ksp)
-alias(libs.plugins.roborazzi)
-alias(libs.plugins.secrets)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.google.devtools.ksp)
+    alias(libs.plugins.roborazzi)
+    alias(libs.plugins.secrets)
 }
 
 android {
-namespace = "com.aistudio.luminaphoto.xptvws"
-compileSdk = 36
+    namespace = "com.example"
+    compileSdk = 36
 
-defaultConfig {
-    applicationId = "com.aistudio.luminaphoto.xptvws"
-    minSdk = 24
-    targetSdk = 36
-    versionCode = 1
-    versionName = "1.0"
+    defaultConfig {
+        applicationId = "com.example"
+        minSdk = 24
+        targetSdk = 36
+        versionCode = 1
+        versionName = "1.0"
 
-    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-}
-
-buildTypes {
-    release {
-        isMinifyEnabled = false
-        isCrunchPngs = false
-
-        proguardFiles(
-            getDefaultProguardFile("proguard-android-optimize.txt"),
-            "proguard-rules.pro"
-        )
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    debug {
-        isMinifyEnabled = false
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            isCrunchPngs = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+
+        debug {
+            isMinifyEnabled = false
+        }
     }
-}
 
-compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
-
-kotlin {
-    jvmToolchain(11)
-}
-
-buildFeatures {
-    compose = true
-    buildConfig = true
-}
-
-testOptions {
-    unitTests {
-        isIncludeAndroidResources = true
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
-}
 
+    buildFeatures {
+        compose = true
+        buildConfig = true
+    }
+
+    // 🔥 IMPORTANT FIX (R generation stable)
+    sourceSets {
+        getByName("main") {
+            java.srcDirs("src/main/java")
+            res.srcDirs("src/main/res")
+        }
+    }
 }
 
 secrets {
-propertiesFileName = ".env"
-defaultPropertiesFileName = ".env.example"
+    propertiesFileName = ".env"
+    defaultPropertiesFileName = ".env.example"
 }
 
 dependencies {
-implementation(platform(libs.androidx.compose.bom))
-implementation(platform(libs.firebase.bom))
 
-implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(platform(libs.firebase.bom))
 
-implementation(libs.androidx.compose.material.icons.core)
-implementation(libs.androidx.compose.material.icons.extended)
-implementation(libs.androidx.compose.material3)
-implementation(libs.androidx.compose.ui)
-implementation(libs.androidx.compose.ui.graphics)
-implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.ui.tooling.preview)
 
-implementation(libs.androidx.core.ktx)
-implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.datastore.preferences)
 
-implementation(libs.androidx.lifecycle.runtime.compose)
-implementation(libs.androidx.lifecycle.runtime.ktx)
-implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation.compose)
 
-implementation(libs.androidx.room.runtime)
-implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
 
-implementation(libs.coil.compose)
+    implementation(libs.coil.compose)
 
-implementation(libs.retrofit)
-implementation(libs.converter.moshi)
+    implementation(libs.retrofit)
+    implementation(libs.converter.moshi)
 
-implementation(libs.okhttp)
-implementation(libs.logging.interceptor)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 
-implementation(libs.moshi.kotlin)
+    implementation(libs.moshi.kotlin)
 
-implementation(libs.firebase.ai)
+    implementation(libs.firebase.ai)
 
-implementation(libs.kotlinx.coroutines.core)
-implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
-testImplementation(libs.junit)
-testImplementation(libs.androidx.junit)
-testImplementation(libs.androidx.core)
-testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.junit)
+    testImplementation(libs.androidx.junit)
+    testImplementation(libs.androidx.core)
+    testImplementation(libs.kotlinx.coroutines.test)
 
-testImplementation(libs.robolectric)
-testImplementation(libs.roborazzi)
-testImplementation(libs.roborazzi.compose)
-testImplementation(libs.roborazzi.junit.rule)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.runner)
 
-androidTestImplementation(platform(libs.androidx.compose.bom))
-androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-androidTestImplementation(libs.androidx.espresso.core)
-androidTestImplementation(libs.androidx.junit)
-androidTestImplementation(libs.androidx.runner)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-debugImplementation(libs.androidx.compose.ui.tooling)
-debugImplementation(libs.androidx.compose.ui.test.manifest)
-
-ksp(libs.androidx.room.compiler)
-ksp(libs.moshi.kotlin.codegen)
-
+    ksp(libs.androidx.room.compiler)
+    ksp(libs.moshi.kotlin.codegen)
 }
